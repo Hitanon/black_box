@@ -4,7 +4,6 @@ from PIL.Image import Resampling
 
 root = Tk()
 root.title('Чёрынй ящик')
-menu = Menu(root, bg="#505050")
 
 width = root.winfo_screenwidth()
 height = root.winfo_screenwidth() * 9 // 16
