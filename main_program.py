@@ -15,6 +15,17 @@ from algorithms import polindrome_without
 from algorithms import shift
 from algorithms import vowel
 
+from algorithms import summ
+from algorithms import square
+from algorithms import odd_number
+from algorithms import mult_number
+from algorithms import length
+from algorithms import every_second_del
+from algorithms import even_number
+from algorithms import even_odd
+from algorithms import mult_two_summ_one
+from algorithms import alph
+
 import random
 
 
@@ -137,7 +148,7 @@ def on_close(event):
     main_menu.destroy()
 
 
-levels = [a_to_B, nine_minus_old, Caesar, consonant, dots, FML, joint, polindrome_without, shift, vowel]
+levels = [a_to_B, nine_minus_old, Caesar, consonant, dots, FML, joint, polindrome_without, shift, vowel, summ, square, odd_number, mult_number, mult_two_summ_one, length, even_odd, even_number, every_second_del, alph]
 current_level = levels[6]
 
 
