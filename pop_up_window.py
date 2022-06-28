@@ -27,8 +27,4 @@ class PopUP(Toplevel):
         self.image = ImageTk.PhotoImage(pil_image)
         self.canvas.create_image(0, 0, anchor="nw", image=self.image)
 
-        self.bind('<Down>', self.on_close)
-
-    def on_close(self, event):
-        self.destroy()
 

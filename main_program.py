@@ -2,8 +2,7 @@ from tkinter import *
 from main_menu import MainMenu
 from normal_mode import NormalMode
 from exam_mode import ExamMode
-from window_try import TryWindow
-from window_win import WinWindow
+from pop_up_window import PopUP
 
 from algorithms import a_to_B
 from algorithms import Caesar
@@ -16,8 +15,8 @@ from algorithms import polindrome_without
 from algorithms import shift
 from algorithms import vowel
 
-
 import random
+
 
 def processing(event):
     global normal_mode
@@ -30,49 +29,108 @@ def processing(event):
 
 
 def open_normal_mode(event):
+    global main_menu
     global normal_mode
+    global exam_mode_go_next
     global levels
     global current_level
     # try:
     #     current_level = random.choice(levels)
     # except IndexError:
-    #     #Закончились уровни
+    #     # Закончились уровни
     #     print()
-    if normal_mode:
-        normal_mode.destroy()
-    normal_mode = NormalMode(main_menu, 'backgrounds/normal_mode.png')
-    normal_mode.bind('<Return>', processing)
-    normal_mode.bind('<Up>', open_exam_mode)
+    # if normal_mode:
+    main_menu.withdraw()
+    normal_mode.deiconify()
+
+
+def on_close_normal_mode(event):
+    global main_menu
+    global normal_mode
+    main_menu.deiconify()
+    main_menu.grab_set()
+    normal_mode.withdraw()
 
 
 def open_exam_mode(event):
     global exam_mode
     global current_level
+    global exam_mode
     input_data = current_level.get_random_string()
-    exam_mode = ExamMode(main_menu, 'backgrounds/exam_mode.png')
+    normal_mode.withdraw()
+    exam_mode.deiconify()
+    exam_mode.grab_set()
     exam_mode.label['text'] = input_data
-    #По какой-то причине не получается изъять содержимое exam_mode до вызова функции
-    exam_mode.entry.bind('<Return>', lambda e, input_data=input_data: open_pop_up(e, input_data))
+    exam_mode.entry.delete(0, END)
+    exam_mode.entry.bind('<Return>', lambda e, data=input_data: open_pop_up(e, data))
+
+
+def on_close_exam_mode(event):
+    global normal_mode
+    global exam_mode
+    normal_mode.deiconify()
+    normal_mode.grab_set()
+    exam_mode.withdraw()
 
 
 def open_exam_mode_go_next():
-    global normal_mode
-    exam_mode.destroy()
-    exam_mode_go_next = ExamMode(main_menu, 'backgrounds/exam_mode_go_next.png')
-    exam_mode_go_next.bind('<Up>', exam_mode_go_next.on_close)
-    exam_mode_go_next.bind('<Up>', open_normal_mode)
+    global exam_mode_go_next
+    global exam_mode
+    exam_mode_go_next.deiconify()
+    exam_mode_go_next.grab_set()
+    exam_mode.withdraw()
+
+
+# нужно написать функцию возврата к окну exam_mode
+def on_close_exam_mode_go_next(event):
+    pass
+    # global exam_mode
+    # global exam_mode_go_next
+    # input_data = current_level.get_random_string()
+    # exam_mode.deiconify()
+    # exam_mode.grab_set()
+    # exam_mode.label['text'] = input_data
+    # exam_mode.entry.delete(0, END)
+    # exam_mode.entry.bind('<Return>', lambda e, data=input_data: open_pop_up(e, data))
+    # exam_mode_go_next.withdraw()
 
 
 def open_pop_up(event, input_data):
     # здесь условие правильно или неправильно угадано
     global exam_mode
+    global exam_mode_go_next
     global current_level
     if exam_mode.entry.get() == current_level.factory(input_data):
         levels.pop(levels.index(current_level))
-        open_exam_mode_go_next()
-        WinWindow(main_menu, 'backgrounds/win.png')
+        exam_mode_go_next.deiconify()
+        exam_mode_go_next.grab_set()
+        exam_mode.withdraw()
+        win.deiconify()
+        win.grab_set()
     else:
-        TryWindow(main_menu, 'backgrounds/try_again.png')
+        lose.deiconify()
+        lose.grab_set()
+
+
+def on_close_win(event):
+    global win
+    global exam_mode_go_next
+    win.withdraw()
+    exam_mode_go_next.grab_set()
+
+
+def on_close_lose(event):
+    global lose
+    global exam_mode
+    lose.withdraw()
+    exam_mode.entry.delete(0, END)
+    exam_mode.grab_set()
+
+
+def go_next_level(event):
+    exam_mode_go_next.withdraw()
+    normal_mode.deiconify()
+    normal_mode.grab_set()
 
 
 def on_close(event):
@@ -81,14 +139,38 @@ def on_close(event):
 
 levels = [a_to_B, nine_minus_old, Caesar, consonant, dots, FML, joint, polindrome_without, shift, vowel]
 current_level = levels[6]
-normal_mode = 0
+
 
 main_menu = MainMenu()
 
-# # приходится запускать exam_mode вначале в основной ветке, иначе не получается сделать переход к следующему уровню
-exam_mode = Toplevel()
-exam_mode.destroy()
+# Инициализация всех окон и биндов
+normal_mode = NormalMode(main_menu)
+normal_mode.withdraw()
+normal_mode.bind('<Return>', processing)
+normal_mode.bind('<Up>', open_exam_mode)
+normal_mode.bind('<Escape>', on_close_normal_mode)
+
+exam_mode = ExamMode(main_menu)
+exam_mode.withdraw()
+exam_mode.bind('<Escape>', on_close_exam_mode)
+
+exam_mode_go_next = ExamMode(main_menu, 'backgrounds/exam_mode_go_next.png')
+exam_mode_go_next.withdraw()
+exam_mode_go_next.bind('<Escape>', on_close_exam_mode_go_next)
+exam_mode_go_next.bind('<Up>', go_next_level)
+
+win = PopUP(main_menu, 'backgrounds/win.png')
+win.withdraw()
+win.bind('<Down>', on_close_win)
+
+lose = PopUP(main_menu, 'backgrounds/try_again.png')
+lose.withdraw()
+lose.bind('<Down>', on_close_lose)
+
+main_menu.grab_set()
 
 main_menu.bind('<Up>', open_normal_mode)
 main_menu.bind('<Escape>', on_close)
+
+
 main_menu.mainloop()

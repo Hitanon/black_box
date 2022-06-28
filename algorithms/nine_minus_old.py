@@ -1,8 +1,10 @@
 # Если цифра четная, то (9-цифра), иначе цифра
 import random
 
+
 def get_random_string():
     return str(random.randint(100, 999))
+
 
 def factory(x):
     result = ''
