@@ -5,7 +5,14 @@ from algorithms.resources import joint_alphabet
 
 
 def get_random_string():
-    return ''.join(random.choice(eng_alphabet) for i in range(random.choice((3, 4))))
+    flag = False
+    s = ''.join(random.choice(eng_alphabet) for i in range(3))
+    for i in s:
+        if i in joint_alphabet:
+            flag = True
+    if not flag:
+        s += random.choice(joint_alphabet)
+    return s
 
 
 def factory(s):

@@ -14,6 +14,8 @@ def factory(s):
             if s[i] == alph[j]:
                 newS += str(j+1)
                 break
+    if not newS:
+        newS = '<Пусто>'
     return newS
 
 

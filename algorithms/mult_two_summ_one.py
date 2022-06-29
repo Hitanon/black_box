@@ -10,4 +10,6 @@ def factory(s):
     if s.isdigit():
         s = int(s)
         newnum = s * 2 + 1
+    if not newnum:
+        newnum = '<Пусто>'
     return str(newnum)

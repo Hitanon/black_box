@@ -12,7 +12,8 @@ def factory(s):
         while s != 0:
             mul *= s % 10
             s = s // 10
-    else: mul = ' '
+    else:
+        mul = '<Пусто>'
     return str(mul)
 
 
