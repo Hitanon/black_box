@@ -1,8 +1,8 @@
+# Работает с латинским алфавитом
 # Если буква Заглавная, то меняется на строчную и смещается на 1 влево в алфавите
 # Если буква строчная, то меняется на Заглавную и смещается на 1 вправо в алфавите
 import random
 from algorithms.resources import eng_alphabet
-
 
 def get_random_string():
     return ''.join(random.choice(eng_alphabet) for i in range(random.choice((3, 4))))

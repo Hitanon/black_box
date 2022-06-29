@@ -7,11 +7,13 @@ def get_random_string():
 
 def factory(s):
     k = ''
-    if s.isdigit():
+    flag = True
+    for i in s:
+        if not (i.isdigit() or i == '-'):
+            flag = False
+    if flag:
         s = int(s)
         k = s * s
-    if not k:
+    else:
         k = '<Пусто>'
     return str(k)
-
-

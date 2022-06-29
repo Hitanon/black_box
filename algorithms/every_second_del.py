@@ -14,4 +14,3 @@ def factory(s):
     if not newnum:
         newnum = '<Пусто>'
     return newnum
-

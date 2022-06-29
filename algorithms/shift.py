@@ -1,4 +1,4 @@
-# Сдвиг на Х влево/вправо
+# Сдвиг строки на Х влево/вправо
 import random
 from algorithms.resources import eng_alphabet
 
