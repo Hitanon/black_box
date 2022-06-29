@@ -24,9 +24,5 @@ class Window(Toplevel):
         self.image = ImageTk.PhotoImage(pil_image)
         self.canvas.create_image(0, 0, anchor="nw", image=self.image)
 
-        self.history_input = Listbox(self, width=12, height=9, bg="white", font="Montserrat 19", fg="#1D1C58")
-        self.history_input.place(relx=0.385, rely=0.238, relwidth=0.11, relheight=0.3)
 
-        self.history_output = Listbox(self, width=12, height=9, bg="white", font="Montserrat 19", fg="#1D1C58")
-        self.history_output.place(relx=0.508, rely=0.238, relwidth=0.11, relheight=0.3)
 

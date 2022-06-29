@@ -16,4 +16,6 @@ def  factory(s):
             else:
                 newnum += str(digit - 1)
             s = s // 10
+    if not newnum:
+        newnum = '<Пусто>'
     return str(newnum)
