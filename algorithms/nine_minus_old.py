@@ -1,4 +1,4 @@
-# Если цифра четная, то (9-цифра), иначе цифра
+# Если цифра четная(не ноль), то (9-цифра), иначе цифра
 import random
 
 
@@ -8,8 +8,14 @@ def get_random_string():
 
 def factory(x):
     result = ''
-    if x.isdigit():
-        x = int(x)
+    flag = True
+    for i in x:
+        if not (i.isdigit() or i == '-'):
+            flag = False
+    if flag:
+        if x[0] != '-':
+            flag = False
+        x = abs(int(x))
         while x:
             last = x % 10
             if last % 2 == 0:
@@ -17,6 +23,8 @@ def factory(x):
             else:
                 result = str(last) + result
             x //= 10
+        if flag:
+            result = '-' + result
     else:
         result = '<Пусто>'
     return result

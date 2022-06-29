@@ -2,7 +2,6 @@
 import random
 from algorithms.resources import dots
 
-
 def get_random_string():
     return ''.join(random.choice(dots) for i in range(random.choice((3, 4))))
 

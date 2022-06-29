@@ -7,8 +7,12 @@ def get_random_string():
 
 def  factory(s):
     sum = 0
-    if s.isdigit():
-        s = int(s)
+    flag = True
+    for i in s:
+        if not (i.isdigit() or i == '-'):
+            flag = False
+    if flag:
+        s = abs(int(s))
         while s != 0:
             sum += s % 10
             s = s // 10

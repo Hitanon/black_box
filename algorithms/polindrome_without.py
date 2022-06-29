@@ -1,4 +1,5 @@
-# Полиндром без согласных/гласных
+# Работает с латинским алфавитом
+# Реверс слова без согласных/гласных
 import random
 from algorithms.resources import eng_alphabet
 from algorithms.resources import eng_vowels

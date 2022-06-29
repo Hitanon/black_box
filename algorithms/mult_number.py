@@ -7,15 +7,16 @@ def get_random_string():
 
 def factory(s):
     mul = 1
-    if s.isdigit():
-        s = int(s)
+    flag = True
+    for i in s:
+        if not (i.isdigit() or i == '-'):
+            flag = False
+    if flag:
+        s = abs(int(s))
         while s != 0:
             mul *= s % 10
             s = s // 10
     else:
         mul = '<Пусто>'
     return str(mul)
-
-
-
 
